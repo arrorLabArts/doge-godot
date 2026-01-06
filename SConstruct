@@ -59,8 +59,22 @@ elif env["platform"] == "ios":
         print("You need to build libsecp256k1 for iOS first.")
         print("See build instructions in README.md")
 
+elif env["platform"] == "linux":
+    # For Linux, we'll link the prebuilt libsecp256k1.a
+    secp_lib_path = "thirdparty/secp256k1/build-linux/lib"
+
+    if os.path.exists(secp_lib_path):
+        env.Append(LIBPATH=[secp_lib_path])
+        env.Append(LIBS=["secp256k1"])
+    else:
+        print(f"Warning: libsecp256k1.a not found at {secp_lib_path}")
+        print("You need to build libsecp256k1 for Linux first. Run:")
+        print("cd thirdparty/secp256k1 && mkdir -p build-linux && \\")
+        print("cmake -B build-linux -DSECP256K1_ENABLE_MODULE_RECOVERY=ON -DSECP256K1_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release && \\")
+        print("cmake --build build-linux")
+
 else:
-    # Desktop platforms - try to find system secp256k1 or build locally
+    # Other desktop platforms (macOS with autotools, Windows) - try to find system secp256k1 or build locally
     secp_lib_path = "thirdparty/secp256k1/build/.libs"
     if os.path.exists(secp_lib_path):
         env.Append(LIBPATH=[secp_lib_path])
@@ -92,8 +106,13 @@ elif env["platform"] == "macos":
         f"demo/addons/doge_wallet/bin/libdogewallet.macos.{env['target']}.framework/libdogewallet.macos.{env['target']}",
         source=sources,
     )
+elif env["platform"] == "linux":
+    library = env.SharedLibrary(
+        f"demo/addons/doge_wallet/bin/libdogewallet.linux.{env['target']}.{env['arch']}.so",
+        source=sources,
+    )
 else:
-    # Linux or Windows
+    # Windows or other platforms
     library = env.SharedLibrary(
         f"demo/addons/doge_wallet/bin/libdogewallet.{env['platform']}.{env['target']}.{env['arch']}",
         source=sources,
