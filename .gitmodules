@@ -1,0 +1,6 @@
+[submodule "godot-cpp"]
+	path = godot-cpp
+	url = https://github.com/godotengine/godot-cpp
+[submodule "thirdparty/secp256k1"]
+	path = thirdparty/secp256k1
+	url = https://github.com/bitcoin-core/secp256k1

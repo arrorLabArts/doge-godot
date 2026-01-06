@@ -1,0 +1,63 @@
+# SCons build files
+.sconsign.dblite
+.scons_env
+
+# Build artifacts
+*.o
+*.os
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.framework
+
+# Extension binaries
+demo/addons/doge_wallet/bin/*.so
+demo/addons/doge_wallet/bin/*.dylib
+demo/addons/doge_wallet/bin/*.dll
+
+# Godot files
+demo/.godot/
+demo/.import/
+demo/export_presets.cfg
+*.import
+
+# secp256k1 build directories
+thirdparty/secp256k1/build/
+thirdparty/secp256k1/build-*/
+thirdparty/secp256k1/.libs/
+thirdparty/secp256k1/autom4te.cache/
+thirdparty/secp256k1/configure
+thirdparty/secp256k1/Makefile
+thirdparty/secp256k1/Makefile.in
+thirdparty/secp256k1/aclocal.m4
+thirdparty/secp256k1/config.log
+thirdparty/secp256k1/config.status
+thirdparty/secp256k1/libtool
+thirdparty/secp256k1/*.pc
+thirdparty/secp256k1/src/*.lo
+thirdparty/secp256k1/src/*.la
+thirdparty/secp256k1/src/.deps/
+thirdparty/secp256k1/src/.libs/
+
+# godot-cpp build
+godot-cpp/bin/
+godot-cpp/gen/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Temporary files
+tmp.txt
+*.tmp
+
+# Logs
+*.log

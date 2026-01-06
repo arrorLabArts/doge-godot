@@ -1,0 +1,12 @@
+[configuration]
+entry_symbol = "doge_wallet_library_init"
+compatibility_minimum = 4.2
+
+[libraries]
+android.debug.arm64 = "res://addons/doge_wallet/bin/libdogewallet.android.template_debug.arm64-v8a.so"
+android.release.arm64 = "res://addons/doge_wallet/bin/libdogewallet.android.template_release.arm64-v8a.so"
+android.debug.arm32 = "res://addons/doge_wallet/bin/libdogewallet.android.template_debug.armeabi-v7a.so"
+android.release.arm32 = "res://addons/doge_wallet/bin/libdogewallet.android.template_release.armeabi-v7a.so"
+
+ios.debug = "res://addons/doge_wallet/bin/libdogewallet.ios.template_debug.arm64.dylib"
+ios.release = "res://addons/doge_wallet/bin/libdogewallet.ios.template_release.arm64.dylib"
