@@ -12,12 +12,10 @@
 *.lib
 *.framework
 
-# Extension binaries
-# NOTE: Including compiled binaries so users can directly use the addon
-# Comment these out if you want to exclude binaries from git
-# demo/addons/doge_wallet/bin/*.so
-# demo/addons/doge_wallet/bin/*.dylib
-# demo/addons/doge_wallet/bin/*.dll
+# Extension binaries - allow addon binaries to be committed
+!demo/addons/doge_wallet/bin/*.so
+!demo/addons/doge_wallet/bin/*.dylib
+!demo/addons/doge_wallet/bin/*.dll
 
 # Godot files
 demo/.godot/
