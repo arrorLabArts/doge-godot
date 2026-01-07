@@ -38,11 +38,11 @@ static void encode_varint(size_t value, std::vector<uint8_t>& out) {
     }
 }
 
-// Construct Bitcoin message format for signing
+// Construct Dogecoin message format for signing
 static void construct_bitcoin_message(const std::string& message, std::vector<uint8_t>& out) {
-    // Magic string (using octal escape to avoid hex parsing issues)
-    const char* magic = "\030Bitcoin Signed Message:\n";
-    size_t magic_len = 25; // strlen(magic) = 25
+    // Magic string - \031 is octal for 25, the length of "Dogecoin Signed Message:\n"
+    const char* magic = "\031Dogecoin Signed Message:\n";
+    size_t magic_len = 26; // 1 byte length prefix + 25 byte string = 26 total
 
     // Message bytes
     const uint8_t* msg_data = reinterpret_cast<const uint8_t*>(message.data());
