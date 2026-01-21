@@ -38,6 +38,9 @@ if env["platform"] == "android":
     android_abi = abi_map.get(arch, "arm64-v8a")
     secp_lib_path = f"thirdparty/secp256k1/build-android-{android_abi}/lib"
 
+    # Add 16KB page size alignment for Android 15+ (required by Google Play)
+    env.Append(LINKFLAGS=["-Wl,-z,max-page-size=16384"])
+
     if os.path.exists(secp_lib_path):
         env.Append(LIBPATH=[secp_lib_path])
         env.Append(LIBS=["secp256k1"])
@@ -88,9 +91,12 @@ else:
 
 # Build the library
 if env["platform"] == "android":
-    android_arch = env.get("android_arch", "arm64-v8a")
+    # Map arch to Android ABI for output filename
+    arch = env.get("arch", "arm64")
+    abi_map = {"arm64": "arm64-v8a", "arm32": "armeabi-v7a", "x86_64": "x86_64", "x86": "x86"}
+    android_abi = abi_map.get(arch, "arm64-v8a")
     library = env.SharedLibrary(
-        f"demo/addons/doge_wallet/bin/libdogewallet.android.{env['target']}.{android_arch}.so",
+        f"demo/addons/doge_wallet/bin/libdogewallet.android.{env['target']}.{android_abi}.so",
         source=sources,
     )
 elif env["platform"] == "ios":

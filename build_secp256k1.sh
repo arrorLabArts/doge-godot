@@ -43,6 +43,7 @@ build_android() {
     BUILD_DIR="build-android-${ABI}"
     mkdir -p "$BUILD_DIR"
 
+    # Add 16KB page size alignment for Android 15+ (required by Google Play)
     cmake -B "$BUILD_DIR" \
         -DCMAKE_TOOLCHAIN_FILE="$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake" \
         -DANDROID_ABI="$ABI" \
@@ -51,7 +52,9 @@ build_android() {
         -DSECP256K1_BUILD_TESTS=OFF \
         -DSECP256K1_BUILD_EXHAUSTIVE_TESTS=OFF \
         -DSECP256K1_BUILD_BENCHMARK=OFF \
-        -DBUILD_SHARED_LIBS=OFF
+        -DBUILD_SHARED_LIBS=OFF \
+        -DCMAKE_C_FLAGS="-Wl,-z,max-page-size=16384" \
+        -DCMAKE_CXX_FLAGS="-Wl,-z,max-page-size=16384"
 
     cmake --build "$BUILD_DIR" --config Release
 
